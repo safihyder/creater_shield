@@ -132,26 +132,26 @@ export function SettingsModal() {
   const isApifyConfiguredInEnv = Boolean(DEFAULT_API_KEYS.apifyToken);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-[#0b1b2e] border border-slate-700/60 rounded-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="bg-[#0b1b2e] border border-slate-700/60 rounded-2xl w-full max-w-2xl max-h-[96vh] sm:max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col">
         {/* Header */}
-        <div className="p-6 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-[#0b1b2e]/95 backdrop-blur z-10">
+        <div className="p-4 sm:p-6 border-b border-slate-800 flex items-center justify-between sticky top-0 bg-[#0b1b2e]/95 backdrop-blur z-10">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
-              <Lock className="w-6 h-6" />
+            <div className="p-2 sm:p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <Lock className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
                 API Configuration (.env)
               </h3>
-              <p className="text-xs text-slate-400">
-                Credentials managed securely via <code className="text-blue-300 font-mono">.env</code>. Keys are masked and not exposed in UI.
+              <p className="text-[11px] sm:text-xs text-slate-400">
+                Credentials managed securely via <code className="text-blue-300 font-mono">.env</code>.
               </p>
             </div>
           </div>
           <button
             onClick={() => setIsSettingsOpen(false)}
-            className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors"
+            className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -373,30 +373,30 @@ export function SettingsModal() {
           </div>
 
           {/* Actions */}
-          <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+          <div className="pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
             <button
               type="button"
               onClick={handleResetDefaults}
-              className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors"
+              className="text-xs text-slate-400 hover:text-white flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg hover:bg-slate-800 transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               Reset to .env Defaults
             </button>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={() => setIsSettingsOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 transition-colors"
+                className="flex-1 sm:flex-none px-4 py-2.5 sm:py-2 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2"
+                className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 transition-all flex items-center justify-center gap-2"
               >
                 <Check className="w-4 h-4" />
-                Save & Apply Settings
+                Save Settings
               </button>
             </div>
           </div>

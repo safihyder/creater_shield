@@ -61,9 +61,10 @@ export function AppProvider({ children }) {
   // 5. Active Admin Tab ('overview' | 'verification' | 'payouts')
   const [adminTab, setAdminTab] = useState('overview');
 
-  // 6. UI Modals
+  // 6. UI Modals & Mobile Drawer
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [inspectVideoId, setInspectVideoId] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // 7. Toasts System
   const [toasts, setToasts] = useState([]);
@@ -387,6 +388,8 @@ export function AppProvider({ children }) {
         setAdminTab,
         isSettingsOpen,
         setIsSettingsOpen,
+        isMobileMenuOpen,
+        setIsMobileMenuOpen,
         inspectVideoId,
         setInspectVideoId,
         inspectedVideo,

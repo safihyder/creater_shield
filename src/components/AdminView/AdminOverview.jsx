@@ -83,91 +83,91 @@ export function AdminOverview() {
     const views = list.reduce((acc, v) => acc + (v.views || 0), 0);
     return {
       platform: platKey.toUpperCase(),
-      submissions: count,
+      submissions: count, 
       flagged,
       views,
     };
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Top Admin KPI Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-2.5 sm:gap-3.5">
         {/* Total Submissions */}
-        <div className="p-4 rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Submissions</span>
-            <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400">
-              <Users className="w-4 h-4" />
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
+          <div className="flex items-center justify-between text-slate-400 mb-1.5 sm:mb-2">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Submissions</span>
+            <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-blue-500/10 text-blue-400">
+              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-white">{totalSubmissions}</p>
-          <p className="text-[10px] text-slate-400 mt-1">
-            {useLiveApi ? 'Live verified submissions' : 'Across 4 platforms'}
+          <p className="text-xl sm:text-2xl font-black text-white">{totalSubmissions}</p>
+          <p className="text-[9px] sm:text-[10px] text-slate-400 mt-0.5 truncate">
+            {useLiveApi ? 'Live verified' : 'Across 4 platforms'}
           </p>
         </div>
 
         {/* Verified Organic Views */}
-        <div className="p-4 rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Verified Views</span>
-            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">
-              <ShieldCheck className="w-4 h-4" />
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
+          <div className="flex items-center justify-between text-slate-400 mb-1.5 sm:mb-2">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Verified Views</span>
+            <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-emerald-500/10 text-emerald-400">
+              <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-emerald-400 font-mono">
+          <p className="text-xl sm:text-2xl font-black text-emerald-400 font-mono">
             {verifiedViews >= 1000000
               ? `${(verifiedViews / 1000000).toFixed(2)}M`
               : `${(verifiedViews / 1000).toFixed(1)}k`}
           </p>
-          <p className="text-[10px] text-slate-400 mt-1">
-            {totalViews > 0 ? ((verifiedViews / totalViews) * 100).toFixed(1) : 0}% of gross volume
+          <p className="text-[9px] sm:text-[10px] text-slate-400 mt-0.5 truncate">
+            {totalViews > 0 ? ((verifiedViews / totalViews) * 100).toFixed(1) : 0}% of gross
           </p>
         </div>
 
         {/* Fraud Rate */}
-        <div className="p-4 rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Fraud Rate</span>
-            <div className="p-2 rounded-xl bg-red-500/10 text-red-400">
-              <ShieldAlert className="w-4 h-4" />
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
+          <div className="flex items-center justify-between text-slate-400 mb-1.5 sm:mb-2">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Fraud Rate</span>
+            <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-red-500/10 text-red-400">
+              <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-red-400 font-mono">{fraudRate}%</p>
-          <p className="text-[10px] text-red-400/80 mt-1">{flaggedVideos.length} anomalous posts</p>
+          <p className="text-xl sm:text-2xl font-black text-red-400 font-mono">{fraudRate}%</p>
+          <p className="text-[9px] sm:text-[10px] text-red-400/80 mt-0.5 truncate">{flaggedVideos.length} flagged</p>
         </div>
 
         {/* Payout Pool */}
-        <div className="p-4 rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
-          <div className="flex items-center justify-between text-slate-400 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Payout Pool</span>
-            <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400">
-              <DollarSign className="w-4 h-4" />
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-lg">
+          <div className="flex items-center justify-between text-slate-400 mb-1.5 sm:mb-2">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Payout Pool</span>
+            <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-blue-500/10 text-blue-400">
+              <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-white font-mono">${totalPayout.toFixed(2)}</p>
-          <p className="text-[10px] text-slate-400 mt-1">Pending & settled</p>
+          <p className="text-xl sm:text-2xl font-black text-white font-mono">${totalPayout.toFixed(2)}</p>
+          <p className="text-[9px] sm:text-[10px] text-slate-400 mt-0.5 truncate">Pending & settled</p>
         </div>
 
         {/* Fraud Dollars Blocked */}
-        <div className="col-span-2 md:col-span-1 p-4 rounded-2xl bg-gradient-to-br from-red-950/40 to-slate-900 border border-red-500/30 shadow-lg">
-          <div className="flex items-center justify-between text-red-300 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Fraud Prevented</span>
-            <div className="p-2 rounded-xl bg-red-500/20 text-red-400">
-              <ShieldAlert className="w-4 h-4" />
+        <div className="col-span-2 md:col-span-1 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-gradient-to-br from-red-950/40 to-slate-900 border border-red-500/30 shadow-lg">
+          <div className="flex items-center justify-between text-red-300 mb-1.5 sm:mb-2">
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Fraud Prevented</span>
+            <div className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-red-500/20 text-red-400">
+              <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-red-400 font-mono">
+          <p className="text-xl sm:text-2xl font-black text-red-400 font-mono">
             ${fraudPrevented.toFixed(2)}
           </p>
-          <p className="text-[10px] text-slate-400 mt-1">Saved from bot inflation</p>
+          <p className="text-[9px] sm:text-[10px] text-slate-400 mt-0.5 truncate">Saved from bots</p>
         </div>
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Progression Chart (2 Cols) */}
-        <div className="lg:col-span-2 p-5 rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-xl">
+        <div className="lg:col-span-2 p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
@@ -201,9 +201,9 @@ export function AdminOverview() {
               </button>
             </div>
           ) : (
-            <div className="h-64 w-full">
+            <div className="h-56 sm:h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={progressionData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <AreaChart data={progressionData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                   <defs>
                     <linearGradient id="organicGrad" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4} />
@@ -215,18 +215,18 @@ export function AdminOverview() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                  <XAxis dataKey="day" stroke="#64748b" fontSize={11} />
-                  <YAxis stroke="#64748b" fontSize={11} tickFormatter={(v) => `${v / 1000}k`} />
+                  <XAxis dataKey="day" stroke="#64748b" fontSize={10} />
+                  <YAxis stroke="#64748b" fontSize={10} tickFormatter={(v) => `${v / 1000}k`} />
                   <Tooltip
                     contentStyle={{
                       backgroundColor: '#0f172a',
                       borderColor: '#334155',
                       borderRadius: '0.75rem',
-                      fontSize: '12px',
+                      fontSize: '11px',
                       color: '#f8fafc',
                     }}
                   />
-                  <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
+                  <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
                   <Area
                     type="monotone"
                     dataKey="organicViews"
@@ -252,7 +252,7 @@ export function AdminOverview() {
         </div>
 
         {/* Platform Risk Breakdown (1 Col) */}
-        <div className="p-5 rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-xl flex flex-col justify-between">
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-[#0b1b2e] border border-slate-800 shadow-xl flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -267,12 +267,12 @@ export function AdminOverview() {
             </div>
 
             {totalSubmissions === 0 ? (
-              <div className="h-52 flex flex-col items-center justify-center text-center p-4 bg-slate-900/40 rounded-xl border border-dashed border-slate-800">
+              <div className="h-44 sm:h-52 flex flex-col items-center justify-center text-center p-4 bg-slate-900/40 rounded-xl border border-dashed border-slate-800">
                 <p className="text-xs text-slate-400 font-medium">Zero submissions in live database.</p>
                 <p className="text-[11px] text-slate-500 mt-1">Platform metrics will appear here on submission.</p>
               </div>
             ) : (
-              <div className="h-52 w-full">
+              <div className="h-44 sm:h-52 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={platformStats} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />

@@ -49,23 +49,23 @@ export function InspectModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="bg-[#0b1b2e] border border-slate-700/80 rounded-2xl w-full max-w-4xl max-h-[94vh] overflow-y-auto shadow-2xl flex flex-col text-slate-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="bg-[#0b1b2e] border border-slate-700/80 rounded-2xl w-full max-w-4xl max-h-[96vh] sm:max-h-[94vh] overflow-y-auto shadow-2xl flex flex-col text-slate-200">
         {/* Header */}
-        <div className="p-6 border-b border-slate-800 flex items-start justify-between sticky top-0 bg-[#0b1b2e]/95 backdrop-blur z-20">
-          <div className="flex items-start gap-4">
+        <div className="p-4 sm:p-6 border-b border-slate-800 flex items-start justify-between sticky top-0 bg-[#0b1b2e]/95 backdrop-blur z-20">
+          <div className="flex items-start gap-3 sm:gap-4 min-w-0">
             <div
-              className={`p-3 rounded-xl border flex items-center justify-center text-sm font-bold ${platformConfig.bgColor}`}
+              className={`p-2.5 sm:p-3 rounded-xl border flex items-center justify-center text-xs sm:text-sm font-bold shrink-0 ${platformConfig.bgColor}`}
             >
               {platformConfig.name}
             </div>
-            <div>
-              <div className="flex items-center gap-2.5">
-                <h3 className="text-lg font-bold text-white leading-tight">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-sm sm:text-lg font-bold text-white leading-tight truncate max-w-[200px] sm:max-w-md">
                   {video.title || `Video ${video.videoId}`}
                 </h3>
                 <span
-                  className={`text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full border ${
+                  className={`text-[9px] sm:text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full border ${
                     video.status === 'Verified'
                       ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
                       : video.status === 'Suspicious'
@@ -76,7 +76,7 @@ export function InspectModal() {
                   {video.status}
                 </span>
               </div>
-              <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
+              <div className="flex flex-wrap items-center gap-2 text-[11px] sm:text-xs text-slate-400 mt-1">
                 <span>Creator: <strong className="text-slate-200">{video.creator}</strong></span>
                 <span>•</span>
                 <span>ID: <code className="text-slate-300 font-mono">{video.videoId}</code></span>
@@ -87,7 +87,7 @@ export function InspectModal() {
                   rel="noreferrer"
                   className="text-blue-400 hover:text-blue-300 inline-flex items-center gap-1"
                 >
-                  Open Post <ExternalLink className="w-3 h-3" />
+                  Post <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
             </div>
@@ -95,14 +95,14 @@ export function InspectModal() {
 
           <button
             onClick={() => setInspectVideoId(null)}
-            className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors"
+            className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content Body */}
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Top Risk Score & Payout Banner */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Risk Score Dial Card */}

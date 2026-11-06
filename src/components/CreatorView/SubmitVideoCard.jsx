@@ -19,16 +19,15 @@ export function SubmitVideoCard() {
   const { submitVideo, useLiveApi, setIsSettingsOpen } = useApp();
 
   const [platform, setPlatform] = useState('instagram');
-  const [url, setUrl] = useState('https://www.instagram.com/reel/C3zKl89pQwR/');
+  const [url, setUrl] = useState('');
   const [ratePer1k, setRatePer1k] = useState('2.50');
-  const [selectedPreset, setSelectedPreset] = useState(SAMPLE_PRESETS[0]);
+  const [selectedPreset, setSelectedPreset] = useState(null);
   const [loading, setLoading] = useState(false);
   const [lastError, setLastError] = useState(null);
 
   const handleSelectPlatform = (platId) => {
     setPlatform(platId);
     setLastError(null);
-    // Find matching sample preset
     const matchingPreset = SAMPLE_PRESETS.find((p) => p.platform === platId) || SAMPLE_PRESETS[0];
     if (matchingPreset) {
       setSelectedPreset(matchingPreset);
@@ -68,30 +67,29 @@ export function SubmitVideoCard() {
     }
   };
 
-  // URL format helper hint
   const currentPlatformConfig = PLATFORMS[platform] || PLATFORMS.instagram;
 
   return (
-    <div className="bg-[#0b1b2e] border border-slate-850 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+    <div className="bg-[#0b1b2e] border border-slate-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl relative overflow-hidden">
       {/* Background glow accent */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Card Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
         <div>
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Send className="w-4 h-4 text-blue-400" />
-            Submit Post for Engagement Audit & Payout
+          <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+            <Send className="w-4 h-4 text-blue-400 shrink-0" />
+            <span>Submit Post for Engagement Audit & Payout</span>
           </h3>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
             Submit any public post URL to extract views & engagement and run real-time bot fraud scoring.
           </p>
         </div>
 
         {/* Engine mode status pill */}
-        <div className="flex items-center gap-2 self-start md:self-auto">
+        <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
           <span
-            className={`text-xs px-3 py-1 rounded-full font-semibold border flex items-center gap-1.5 ${
+            className={`text-[11px] sm:text-xs px-2.5 py-1 rounded-full font-semibold border flex items-center gap-1.5 ${
               useLiveApi
                 ? 'bg-blue-500/10 text-blue-300 border-blue-500/30'
                 : 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
@@ -112,13 +110,13 @@ export function SubmitVideoCard() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-5 space-y-5">
+      <form onSubmit={handleSubmit} className="mt-4 sm:mt-5 space-y-4 sm:space-y-5">
         {/* 1. Platform Selector */}
         <div>
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
+          <label className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
             1. Select Social Platform
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5">
             {Object.values(PLATFORMS).map((p) => {
               const isSelected = platform === p.id;
               return (
@@ -126,17 +124,17 @@ export function SubmitVideoCard() {
                   key={p.id}
                   type="button"
                   onClick={() => handleSelectPlatform(p.id)}
-                  className={`flex items-center gap-2.5 p-3 rounded-xl border text-xs font-semibold transition-all ${
+                  className={`flex items-center gap-2 sm:gap-2.5 p-2.5 sm:p-3 rounded-xl border text-xs font-semibold transition-all ${
                     isSelected
                       ? `${p.bgColor} border-current ring-1 ring-current shadow-md`
                       : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800/60'
                   }`}
                 >
                   <span
-                    className="w-2.5 h-2.5 rounded-full"
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
                     style={{ backgroundColor: p.color }}
                   />
-                  <span>{p.name}</span>
+                  <span className="truncate">{p.name}</span>
                 </button>
               );
             })}
@@ -146,14 +144,14 @@ export function SubmitVideoCard() {
         {/* 2. Sample Quick Load Presets */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <label className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
               2. Load Realistic Test Presets
             </label>
-            <span className="text-[11px] text-slate-500">Click to instantly populate URL</span>
+            <span className="text-[10px] text-slate-500 hidden sm:inline">Tap to populate URL</span>
           </div>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2">
             {SAMPLE_PRESETS.map((preset, index) => {
               const isSelected = selectedPreset?.name === preset.name && url === preset.url;
               return (
@@ -161,14 +159,14 @@ export function SubmitVideoCard() {
                   key={index}
                   type="button"
                   onClick={() => handleSelectPreset(preset)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all flex items-center gap-1.5 ${
+                  className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-medium border transition-all flex items-center gap-1.5 ${
                     isSelected
                       ? 'bg-blue-600/30 text-blue-200 border-blue-500 shadow-sm'
                       : 'bg-slate-900/80 text-slate-400 hover:text-white border-slate-800 hover:border-slate-700'
                   }`}
                 >
                   <span
-                    className={`w-1.5 h-1.5 rounded-full ${
+                    className={`w-1.5 h-1.5 rounded-full shrink-0 ${
                       preset.type === 'Organic'
                         ? 'bg-emerald-400'
                         : preset.type === 'Suspicious'
@@ -177,7 +175,6 @@ export function SubmitVideoCard() {
                     }`}
                   />
                   <span>{preset.name}</span>
-                  <span className="text-[10px] opacity-60">({preset.type})</span>
                 </button>
               );
             })}
@@ -185,9 +182,9 @@ export function SubmitVideoCard() {
         </div>
 
         {/* 3. URL Input & Rate CPM */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="md:col-span-3 space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 sm:gap-4">
+          <div className="md:col-span-3 space-y-1">
+            <label className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
               <Link2 className="w-3.5 h-3.5 text-blue-400" />
               3. Post or Video URL
             </label>
@@ -201,16 +198,16 @@ export function SubmitVideoCard() {
                   setLastError(null);
                 }}
                 placeholder={`https://${currentPlatformConfig.domainHint}`}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-xs font-mono placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full px-3.5 sm:px-4 py-2.5 sm:py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-xs sm:text-xs font-mono placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-colors"
               />
             </div>
-            <p className="text-[11px] text-slate-500">
-              Pattern: <span className="text-slate-400 font-mono">{currentPlatformConfig.domainHint}</span>
+            <p className="text-[10px] sm:text-[11px] text-slate-500 truncate">
+              Format: <span className="text-slate-400 font-mono">{currentPlatformConfig.domainHint}</span>
             </p>
           </div>
 
-          <div className="space-y-1.5">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <div className="space-y-1">
+            <label className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
               <DollarSign className="w-3.5 h-3.5 text-emerald-400" />
               Contract CPM ($/1k)
             </label>
@@ -223,16 +220,16 @@ export function SubmitVideoCard() {
                 required
                 value={ratePer1k}
                 onChange={(e) => setRatePer1k(e.target.value)}
-                className="w-full pl-8 pr-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-xs font-mono font-bold focus:outline-none focus:border-blue-500 transition-colors"
+                className="w-full pl-8 pr-4 py-2.5 sm:py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white text-xs font-mono font-bold focus:outline-none focus:border-blue-500 transition-colors"
               />
             </div>
-            <p className="text-[11px] text-slate-500">Baseline: $2.50 / 1k verified views</p>
+            <p className="text-[10px] sm:text-[11px] text-slate-500">$2.50 / 1k standard</p>
           </div>
         </div>
 
         {/* Error Alert if fetch failed */}
         {lastError && (
-          <div className="p-3.5 rounded-xl bg-red-950/40 border border-red-500/40 text-xs text-red-200 flex items-start justify-between gap-3 animate-in fade-in">
+          <div className="p-3 sm:p-3.5 rounded-xl bg-red-950/40 border border-red-500/40 text-xs text-red-200 flex items-start justify-between gap-3 animate-in fade-in">
             <div className="flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
               <div>
@@ -240,19 +237,12 @@ export function SubmitVideoCard() {
                 <p className="text-[11px] text-red-300/90 mt-0.5">{lastError}</p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={() => setIsSettingsOpen(true)}
-              className="text-[11px] font-bold text-red-300 hover:text-white underline shrink-0"
-            >
-              Check Settings
-            </button>
           </div>
         )}
 
         {/* Submit Button */}
-        <div className="pt-2 flex items-center justify-between">
-          <div className="text-xs text-slate-400 hidden sm:block">
+        <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="text-[11px] text-slate-400 hidden sm:block">
             <span>Client-side synchronous fraud evaluation on submission</span>
           </div>
 
@@ -264,7 +254,7 @@ export function SubmitVideoCard() {
             {loading ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin text-white" />
-                <span>Fetching Statistics & Auditing Risk...</span>
+                <span>Auditing Risk & Fetching...</span>
               </>
             ) : (
               <>
@@ -278,4 +268,3 @@ export function SubmitVideoCard() {
     </div>
   );
 }
-
