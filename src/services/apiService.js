@@ -231,7 +231,13 @@ export async function fetchVideoMetrics({
           throw new Error('X post scraper returned 0 items. Verify the post exists on x.com and is not private.');
         }
 
-        const item = items[0];
+        // Detect if actor returned noResults (e.g. apidojo monthly free limit on actor)
+        const validItem = items.find((i) => !i.noResults && (i.text || i.full_text || i.likeCount !== undefined || i.views !== undefined));
+        if (!validItem && items.every((i) => i.noResults)) {
+          throw new Error('Apify X Scraper returned "noResults: true". (The apidojo~tweet-scraper actor has hit its free monthly run limit for this token or the post is not indexed). Switch to Mock Mode for instant testing or upgrade your Apify account.');
+        }
+
+        const item = validItem || items[0];
         const likes = parseInt(item.likeCount || item.likes || item.favorite_count) || 0;
         const mappedViews = parseInt(item.views || item.viewCount || item.impressionCount || (likes * 8)) || 0;
 
@@ -240,7 +246,7 @@ export async function fetchVideoMetrics({
           videoId,
           url: xUrl,
           title: (item.text || item.full_text || '').slice(0, 90) || `X Post (${videoId})`,
-          thumbnail: item.entities?.media?.[0]?.media_url_https || '',
+          thumbnail: item.entities?.media?.[0]?.media_url_https || item.media?.[0]?.url || '',
           views: mappedViews,
           likes,
           comments: parseInt(item.replyCount || item.replies || item.commentsCount) || 0,
