@@ -30,10 +30,10 @@ export const PLATFORMS = {
   },
   x: {
     id: 'x',
-    name: 'X (Twitter)',
-    color: '#1DA1F2',
-    bgColor: 'bg-sky-500/10 text-sky-400 border-sky-500/20',
-    icon: 'Twitter',
+    name: 'X',
+    color: '#F8FAFC',
+    bgColor: 'bg-zinc-800 text-zinc-100 border-zinc-700',
+    icon: 'X',
     domainHint: 'x.com/user/status/...',
   },
 };
@@ -74,13 +74,13 @@ export const SAMPLE_PRESETS = [
     platform: 'x',
     url: 'https://x.com/ayesha_khantech/status/1789234891029',
     type: 'Critical Fake',
-    description: '48% like ratio and impossible 49% ER, failing bot detection thresholds.',
+    description: '48% like ratio and impossible 49% ER on X post, failing bot detection thresholds.',
     mockMetrics: {
       views: 12500,
       likes: 6050, // 48.4% likes/views (+40 risk) AND ER = (6050+80+20)/12500 = 49.2% (>35%, +40 risk) -> risk 80 (Fake/Flagged)
       comments: 80,
       shares: 20,
-      title: 'Excited to announce our newest partnership with CreatorShield!',
+      title: 'Excited to announce our newest partnership with CreatorShield on X!',
     },
     ratePer1k: 3.00,
   },
@@ -177,7 +177,7 @@ export const INITIAL_VIDEOS = [
     platform: 'x',
     url: 'https://x.com/cryptopulse/status/1781290381029',
     videoId: '1781290381029',
-    title: 'Massive giveaway thread! Like & Retweet to win $1000',
+    title: 'Massive giveaway thread! Like & Repost to win $1000',
     views: 22000,
     likes: 10560, // 48% likes/views (>40%) -> Rule 2 (+40). ER = (10560 + 120 + 80) / 22000 = 48.9% (>35%) -> Rule 1 (+40) -> riskScore 80
     comments: 120,
@@ -195,7 +195,7 @@ export const INITIAL_VIDEOS = [
     calculatedPay: 0,
     submittedAt: '2026-11-05T14:10:00Z',
     auditLogs: [
-      { timestamp: '2026-11-05T14:10:00Z', event: 'Post submitted by creator' },
+      { timestamp: '2026-11-05T14:10:00Z', event: 'Post submitted on X by creator' },
       { timestamp: '2026-11-05T14:10:01Z', event: 'Fraud Engine triggered: Bot engagement package detected' },
       { timestamp: '2026-11-05T14:10:01Z', event: 'Status automatically marked Fake / Flagged (Rejected)' },
     ],

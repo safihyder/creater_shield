@@ -35,7 +35,7 @@ Open your browser at `http://localhost:3000`.
     - **YouTube Data API v3**: `GET https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=${key}`
     - **TikTok Scraper (Apify)**: `POST https://api.apify.com/v2/actors/clockworks~tiktok-scraper/run-sync-get-dataset-items`
     - **Instagram Scraper (Apify)**: `POST https://api.apify.com/v2/actors/apify~instagram-scraper/run-sync-get-dataset-items`
-    - **X / Twitter Scraper (Apify)**: `POST https://api.apify.com/v2/actors/apidojo~tweet-scraper/run-sync-get-dataset-items`
+    - **X Scraper (Apify for x.com)**: `POST https://api.apify.com/v2/actors/apidojo~tweet-scraper/run-sync-get-dataset-items`
 
 ---
 

@@ -38,7 +38,7 @@ export function extractContentId(platform, url) {
 
   if (platform === 'x') {
     const match = url.match(/\/status\/(\d+)/);
-    return match ? match[1] : 'tw_' + Math.random().toString(36).substring(2, 8);
+    return match ? match[1] : 'x_' + Math.random().toString(36).substring(2, 8);
   }
 
   return 'id_' + Math.random().toString(36).substring(2, 8);
@@ -203,6 +203,12 @@ export async function fetchVideoMetrics({
           throw new Error('Missing Apify API Token. Please configure your Apify token in Settings or switch to Mock Mode.');
         }
 
+        // Guarantee normalized x.com URL format instead of legacy twitter.com
+        let xUrl = url.trim().replace(/^https?:\/\/(?:www\.)?twitter\.com/i, 'https://x.com');
+        if (!xUrl.startsWith('http://') && !xUrl.startsWith('https://')) {
+          xUrl = 'https://' + xUrl;
+        }
+
         const endpoint = `https://api.apify.com/v2/actors/apidojo~tweet-scraper/run-sync-get-dataset-items?token=${encodeURIComponent(token)}`;
         const res = await fetch(endpoint, {
           method: 'POST',
@@ -210,35 +216,35 @@ export async function fetchVideoMetrics({
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            startUrls: [url],
+            startUrls: [xUrl],
             maxItems: 1,
           }),
         });
 
         if (!res.ok) {
           const errText = await res.text().catch(() => '');
-          throw new Error(`Apify X / Twitter Scraper Error (${res.status}): ${errText || res.statusText}.`);
+          throw new Error(`Apify X Scraper Error (${res.status}): ${errText || res.statusText}.`);
         }
 
         const items = await res.json();
         if (!Array.isArray(items) || items.length === 0) {
-          throw new Error('Tweet scraper returned 0 items. Verify the post exists and is not private.');
+          throw new Error('X post scraper returned 0 items. Verify the post exists on x.com and is not private.');
         }
 
         const item = items[0];
-        const likes = parseInt(item.likeCount) || 0;
-        const mappedViews = parseInt(item.views || item.viewCount || (likes * 8)) || 0;
+        const likes = parseInt(item.likeCount || item.likes || item.favorite_count) || 0;
+        const mappedViews = parseInt(item.views || item.viewCount || item.impressionCount || (likes * 8)) || 0;
 
         return {
           platform: 'x',
           videoId,
-          url,
+          url: xUrl,
           title: (item.text || item.full_text || '').slice(0, 90) || `X Post (${videoId})`,
           thumbnail: item.entities?.media?.[0]?.media_url_https || '',
           views: mappedViews,
           likes,
-          comments: parseInt(item.replyCount) || 0,
-          shares: parseInt(item.retweetCount) || 0,
+          comments: parseInt(item.replyCount || item.replies || item.commentsCount) || 0,
+          shares: parseInt(item.retweetCount || item.repostCount || item.reposts) || 0,
           isLive: true,
           fetchedAt: new Date().toISOString(),
         };
